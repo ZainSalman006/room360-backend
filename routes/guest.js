@@ -21,11 +21,21 @@ router.post('/', async(request,response) => {
         }); 
     }
     catch(error) {
-        return response.status(500).send({
-            "status" : false,
-            "message" : `Request of add guest could not be processed due to : 
-            ${(error.stack == null || error.stack == undefined) ? error : error.stack} `
-        });
+        let e = error.toString();
+        let res = e.match(/duplicate key/g);
+        if(!(e === null)) {
+            return response.status(200).send({
+                "status" : false,
+                "message" : `The Email is already taken. Please try another one`
+            });
+        }
+        else{
+            return response.status(500).send({
+                "status" : false,
+                "message" : `Request of add guest could not be processed due to : 
+                ${(error.stack == null || error.stack == undefined) ? error : error.stack} `
+            });
+        }
     } 
 });
 

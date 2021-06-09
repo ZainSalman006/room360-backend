@@ -7,25 +7,21 @@ const router = express.Router();
 
 router.post('/', async(request,response) => {     
     try {
-        const result = await contact.addMessage();
-        if(result.length === 0) {
-            return response.status(200).send({
-                "status" : true,
-                "message" : "Message have been added"
-            });
+        const {name, email, message} = request.body;
+        
+        if(helper.checkNUllandUndefined(request.body) || helper.checkNUllandUndefined(name) || helper.checkNUllandUndefined(email) || helper.checkNUllandUndefined(message)) {
+            return response.status(400).send("Bad request");
         }
-        else{
-            return response.status(500).send({
-                "status" : false,
-                "message" : `Request of add contactus could not be processed due to : 
-                ${(error.stack == null || error.stack == undefined) ? error : error.stack} `
-            });
-        } 
+        let result = await contact.addMessage(name, email, message);
+        return response.status(200).send({
+            "status" : true,
+            "message" : "Message have been added"
+        }); 
     }
     catch(error) {
         return response.status(500).send({
             "status" : false,
-            "message" : `Request of add contactus could not be processed due to : 
+            "message" : `Request of message could not be processed due to : 
             ${(error.stack == null || error.stack == undefined) ? error : error.stack} `
         });
     } 
