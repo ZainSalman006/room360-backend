@@ -1,8 +1,8 @@
 const customQuery = require("../model/index");
 const config_data = require("../config/config.json");
 
-const doLogin = async(email, password , user) => {
-    let query = `SELECT g_id FROM  room360.host_users WHERE "email"= '${email}' AND "password"= '${password}'`;
+const doLogin = async(email, password) => {
+    let query = `SELECT h_id FROM  room360.host_users WHERE "email"= '${email}' AND "password"= '${password}'`;
     
     try {
         let con = await customQuery.connectToDb();
