@@ -27,7 +27,7 @@ function generateColumnAttributes(header)
 }
 
 function checkNUllandUndefined(data){
-    if(data === undefined || data === null) {
+    if(data === undefined || data === null || data.length === 0) {
         return true;
     }
     else{
