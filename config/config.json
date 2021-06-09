@@ -1,0 +1,7 @@
+{
+    "pg_user": "lrwbenourlfbpf",
+    "pg_host":"ec2-23-23-128-222.compute-1.amazonaws.com",
+    "pg_password":"5e34940c3f5e7b477e3e75baed6562dc501c55013c81f0db0dda583fd7c925a6",
+    "pg_database": "dcskssegi2n9q5",
+    "pg_port":5432
+}
