@@ -4,7 +4,8 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const { request } = require("express");
 
-const login = require("./routes/login");
+const loginguest = require("./routes/loginguest");
+const loginhost = require("./routes/loginhost");
 const booking = require("./routes/booking");
 const place = require("./routes/places");
 const guest = require("./routes/guest");
@@ -31,7 +32,8 @@ app.use(
 );
 
 //API
-app.use("/api/v1/login", login);
+app.use("/api/v1/login-guest", loginguest);
+app.use("/api/v1/login-host", loginhost);
 app.use("/api/v1/booking", booking);
 app.use("/api/v1/place", place);
 app.use("/api/v1/guest", guest);
