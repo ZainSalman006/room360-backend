@@ -6,8 +6,9 @@ const addMessage = async(name, email, message) => {
         let con = await customQuery.connectToDb();
         const query = `INSERT INTO room360.contact
         (email, sender_name, message)
-        VALUES('${emai}', '${name}', '${message}')`;
+        VALUES('${email}', '${name}', '${message}')`;
         let result = await customQuery.executeQuery(con,query); 
+        await customQuery.closeConnection(con);
         
         return result.rows;
     }
