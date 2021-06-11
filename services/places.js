@@ -39,9 +39,11 @@ const deletePlace = async(p_id) => {
 
 const getPlaces = async(h_id) => {
     try {
-        let query = `SELECT * FROM  room360.places WHERE "host_id"= '${h_id}'`;
+        let query = `SELECT * FROM  room360.places WHERE "host_id"= ${h_id}`;
         if(h_id === undefined){
-            query = `SELECT * FROM  room360.places`; 
+            query = `SELECT p_id AS id, placename, description, city, area, country, price, images, address, host_id
+            FROM room360.places
+            `; 
         }
         let con = await customQuery.connectToDb();
         let result1 = await customQuery.executeQuery(con, query);

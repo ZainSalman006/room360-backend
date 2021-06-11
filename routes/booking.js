@@ -7,7 +7,9 @@ const router = express.Router();
 
 router.post('/', async(request,response) => {     
     try {
-        const result = await booking.doBooking();
+        console.log(request.body)
+        const {email, name, phone_no, purposeofstay, noofpeople, dateto, datefrom, place_id, guest_id} = request.body;
+        const result = await booking.doBooking(email, name, phone_no, purposeofstay, noofpeople, dateto, datefrom, place_id, guest_id);
         if(result.length === 0) {
             return response.status(200).send({
                 "status" : true,
@@ -59,17 +61,13 @@ router.put('/', async(request,response) => {
 
 router.get('/', async(request,response) => {     
     try {
-        const {pageNo, pageSize, entityName, groupName, fieldType} = request.query;
-        
-        if(helper.checkNUllandUndefined(request.query) || helper.checkNUllandUndefined(pageNo) || helper.checkNUllandUndefined(pageSize)) {
+        const {id} = request.query;
+
+        if(helper.checkNUllandUndefined(request.query) || helper.checkNUllandUndefined(id)) {
             return response.status(400).send("Bad request");
         }
 
-        if(pageNo < 1) {
-            return response.status(422).send(`page must be greater then 0`);
-        }
-
-        const result = await booking.getBooking();
+        const result = await booking.getBooking(id);
         
         return response.status(200).send({
             "status" : true,

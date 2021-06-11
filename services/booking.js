@@ -20,7 +20,7 @@ const doBooking = async(email, fullname, phone, purposeofstay, noofpeople, datet
 const cancelBooking = async(b_id) => {
     try {
         let con = await customQuery.connectToDb();
-        let result1 = await customQuery.executeQuery(con, `DELETE FROM  room360.bookings WHERE "b_id"= '${b_id}'`);
+        let result1 = await customQuery.executeQuery(con, `DELETE FROM  room360.bookings WHERE "b_id"= ${b_id}`);
         await customQuery.closeConnection(con);
         
         return result1.rows;
@@ -36,7 +36,9 @@ const getBooking = async(g_id, p_id) => {
         query = `SELECT * FROM room360.bookings WHERE "place_id" = ${p_id}`;
     }
     else{
-        query = `SELECT * FROM room360.bookings WHERE "guest_id" = ${g_id}`;
+        query = `SELECT b_id AS id, email, fullname, phone, purposeofstay, noofpeople, dateto, datefrom, place_id, guest_id
+        FROM room360.bookings
+        WHERE "guest_id" = ${g_id}`;
     }
     try {
         let con = await customQuery.connectToDb();
